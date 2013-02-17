@@ -1,4 +1,5 @@
 require 'redmine_uhoh/subscriber'
+require 'redmine_uhoh/hooks'
 
 Redmine::Plugin.register :redmine_uhoh do
   name 'Redmine Uhoh plugin'
@@ -8,4 +9,8 @@ Redmine::Plugin.register :redmine_uhoh do
   version '0.0.1'
   url 'https://github.com/jbbarth/redmine_uhoh'
   requires_redmine :version_or_higher => '2.0.0'
+end
+
+Redmine::MenuManager.map :admin_menu do |menu|
+  menu.push :failures, {:controller => :failures}, :caption => :label_failure_plural
 end
