@@ -1,0 +1,30 @@
+<h2><%= l(:label_failure_plural) %></h2>
+
+<div class="autoscroll">
+<table class="list">
+  <thead><tr>
+    <%= sort_header_tag('id', :caption => "#") %>
+    <%= sort_header_tag('name', :caption => l(:field_type)) %>
+    <%= sort_header_tag('message', :caption => l(:field_content)) %>
+    <%= sort_header_tag('created_at', :caption => l(:field_created_on), :default_order => 'desc') 
+    %>
+    <th></th>
+  </tr></thead>
+  <tbody>
+<% @failures.each do |failure| %>
+  <tr class="failure <%= cycle("odd", "even") %>">
+    <td class="id"><%= failure.id %></td>
+    <td class="name"><%= h failure.name %></td>
+    <td class="message"><%= h failure.message.split("\n").first.sub(Rails.root.to_s, "") %></td>
+    <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
+    <td class="buttons">
+      
+    </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+</div>
+<p class="pagination"><%= pagination_links_full @failure_pages, @failure_count %></p>
+
+<% html_title(l(:label_failure_plural)) -%>
