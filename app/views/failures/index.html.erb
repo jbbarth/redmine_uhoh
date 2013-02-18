@@ -5,7 +5,7 @@
   <thead><tr>
     <%= sort_header_tag('id', :caption => "#") %>
     <%= sort_header_tag('name', :caption => l(:field_type)) %>
-    <%= sort_header_tag('message', :caption => l(:field_content)) %>
+    <th><%= l(:field_content) %></th>
     <%= sort_header_tag('created_at', :caption => l(:field_created_on), :default_order => 'desc') 
     %>
     <th></th>

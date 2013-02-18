@@ -6,19 +6,17 @@ class FailuresController < ApplicationController
   include SortHelper
 
   def index
-    sort_init "created_on desc"
-    sort_update %w(name created_on)
+    sort_init "id", "desc"
+    sort_update %w(id name created_at)
 
-    scope = Failure.order("id desc")
-###    scope = scope.like(params[:name]) if params[:name].present?
-###    scope = scope.in_group(params[:group_id]) if params[:group_id].present?
+    scope = Failure
 
     @limit = per_page_option
     @failure_count = scope.count
-    @failure_pages = Paginator.new self, @failure_count, @limit, params['page']
+    @failure_pages = Paginator.new self, @failure_count, @limit, params[:page]
     @offset ||= @failure_pages.current.offset
     @failures =  scope.order(sort_clause).limit(@limit).offset(@offset)
 
-###    render :layout => !request.xhr?
+    render :layout => !request.xhr?
   end
 end
