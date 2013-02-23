@@ -19,7 +19,7 @@
     </td>
     <td class="name">
       <strong><%= h failure.name %></strong><br>
-      <%= h failure.message.split("\n").first.sub(Rails.root.to_s, "") %>
+      <%= h failure.short_message %>
     </td>
     <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
     <td class="buttons">
