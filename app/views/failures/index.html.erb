@@ -4,8 +4,8 @@
 <table class="list">
   <thead><tr>
     <%= sort_header_tag('id', :caption => "#") %>
+    <th><%= l(:label_login) %></th>
     <%= sort_header_tag('name', :caption => l(:field_type)) %>
-    <th><%= l(:field_content) %></th>
     <%= sort_header_tag('created_at', :caption => l(:field_created_on), :default_order => 'desc') 
     %>
     <th></th>
@@ -14,8 +14,13 @@
 <% @failures.each do |failure| %>
   <tr class="failure <%= cycle("odd", "even") %>">
     <td class="id"><%= failure.id %></td>
-    <td class="name"><%= h failure.name %></td>
-    <td class="message"><%= h failure.message.split("\n").first.sub(Rails.root.to_s, "") %></td>
+    <td class="login">
+      <%= link_to_if failure.user_id.present?, failure.login, user_path(failure.id) %>
+    </td>
+    <td class="name">
+      <strong><%= h failure.name %></strong><br>
+      <%= h failure.message.split("\n").first.sub(Rails.root.to_s, "") %>
+    </td>
     <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
     <td class="buttons">
       

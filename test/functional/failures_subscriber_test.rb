@@ -26,6 +26,10 @@ class FailuresSubscriberTest < ActionController::TestCase
         get :index
       end
     end
-    assert Failure.last.message.match /Bad robot/
+    failure = Failure.last
+    assert failure.message.match /Bad robot/
+    assert_equal "jsmith", failure.login
+    assert_equal 2, failure.user_id
   end
+
 end
