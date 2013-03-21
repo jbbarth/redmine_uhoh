@@ -28,7 +28,7 @@ class FailuresControllerTest < ActionController::TestCase
   end
 
   context "GET :index" do
-    should "define a route for issue relations" do
+    should "define routes for failures" do
       assert_routing(
         { :method => :get, :path => '/failures' },
         { :controller => 'failures', :action => 'index' }
