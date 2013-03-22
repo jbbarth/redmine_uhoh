@@ -19,4 +19,10 @@ class FailuresController < ApplicationController
 
     render :layout => !request.xhr?
   end
+
+  def update
+    @failure = Failure.find(params[:id].to_i)
+    @failure.acknowledge! if params[:acknowledged] == "1"
+    redirect_to failures_path
+  end
 end

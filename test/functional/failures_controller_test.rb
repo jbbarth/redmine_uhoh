@@ -47,4 +47,26 @@ class FailuresControllerTest < ActionController::TestCase
       assert assigns(:failures).include?(failure)
     end
   end
+
+  context "PUT :update" do
+    setup do
+      @failure = Failure.create!(name: "ArgumentError", context: "ctx", message: "blah")
+    end
+
+    should "acknowledge failure if parameter is passed" do
+      put :update, :id => @failure.id, :acknowledged => "1"
+      assert_redirected_to "/failures"
+      assert @failure.reload.acknowledged?
+    end
+
+    should "not accept updates on any other parameter" do
+      old_attributes = @failure.attributes
+      put :update, :id => @failure.id, :failure => { :name => "Blah", :context => "Foo" }
+      assert_redirected_to "/failures"
+      @failure.reload
+      %w(name context message signature acknowledged acknowledged_user_id).each do |key|
+        assert_equal old_attributes[key], @failure.attributes[key]
+      end
+    end
+  end
 end
