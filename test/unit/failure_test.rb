@@ -21,4 +21,11 @@ class FailureTest < ActiveSupport::TestCase
     assert failure.acknowledged?
     assert_equal User.current, failure.acknowledged_user
   end
+
+  test "#not_acknowledged scope" do
+    failure1 = Failure.create!(:name => "Exception", :message => "blah:57", :acknowledged => false)
+    failure2 = Failure.create!(:name => "Exception", :message => "blah:57", :acknowledged => true)
+    assert Failure.not_acknowledged.include?(failure1)
+    assert !Failure.not_acknowledged.include?(failure2)
+  end
 end

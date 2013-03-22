@@ -9,7 +9,7 @@ class FailuresController < ApplicationController
     sort_init "id", "desc"
     sort_update %w(id name created_at)
 
-    scope = Failure
+    scope = Failure.not_acknowledged
 
     @limit = per_page_option
     @failure_count = scope.count

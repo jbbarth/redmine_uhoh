@@ -4,6 +4,8 @@ class Failure < ActiveRecord::Base
 
   before_save :compute_signature
 
+  scope :not_acknowledged, lambda{ where(:acknowledged => false) }
+
   def short_message
     "#{message}".split("\n").first.sub(Rails.root.to_s, "")
   end
