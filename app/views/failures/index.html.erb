@@ -23,7 +23,7 @@
     </td>
     <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
     <td class="buttons">
-      <%= link_to l(:label_acknowledge), failure_path(failure), :method => :put %>
+      <%= link_to l(:label_acknowledge), failure_path(failure, :acknowledged => 1), :method => :put %>
     </td>
   </tr>
 <% end %>
