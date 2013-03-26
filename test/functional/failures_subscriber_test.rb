@@ -30,6 +30,7 @@ class FailuresSubscriberTest < ActionController::TestCase
     assert failure.message.match /Bad robot/
     assert_equal "jsmith", failure.login
     assert_equal 2, failure.user_id
+    assert failure.backtrace.match(/\w+/)
   end
 
 end

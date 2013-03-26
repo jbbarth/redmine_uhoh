@@ -11,7 +11,7 @@ class Failure < ActiveRecord::Base
   end
 
   def long_message
-    "#{message}".gsub(Rails.root.to_s, "")
+    "#{message}\n#{backtrace}".gsub(Rails.root.to_s, "")
   end
 
   def compute_signature

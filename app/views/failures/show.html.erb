@@ -10,7 +10,7 @@
 <div class=failure-backtrace>
   <code>
     <strong><%= h @failure.name %></strong><br>
-    <%= h @failure.long_message %>
+    <%= h(@failure.long_message).gsub("\n","<br>").html_safe %>
   </code>
 </div>
 

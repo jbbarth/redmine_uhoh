@@ -8,6 +8,12 @@ class FailureTest < ActiveSupport::TestCase
     assert_equal "/blah:57 hi", failure.short_message
   end
 
+  test "#long_message" do
+    failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails",
+                              :backtrace => "backbacktrace")
+    assert_equal "/blah:57 hi\ndetails\nbackbacktrace", failure.long_message
+  end
+
   test "#signature" do
     failure = Failure.create!(:name => "Exception", :message => "blah:57 hi <Model:0x4234c453> foo\ndetails")
     assert_equal "Exception|blah:57 hi <Model:xxx> foo", failure.signature
