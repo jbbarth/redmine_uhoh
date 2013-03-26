@@ -1,0 +1,17 @@
+<div class=contextual>
+  <%= link_to l(:label_acknowledge), failure_path(@failure, :acknowledged => 1), :method => :put %>
+</div>
+<h2><%= link_to l(:label_failure_plural), failures_path %> &#187; <%= l(:label_failure) %> #<%= @failure.id %></h2>
+
+<em class="info">
+  <%= format_time(@failure.created_at) %> /
+  <%= link_to_if @failure.user_id.present?, @failure.login, user_path(@failure.id) %>
+</em>
+<div class=failure-backtrace>
+  <code>
+    <strong><%= h @failure.name %></strong><br>
+    <%= h @failure.long_message %>
+  </code>
+</div>
+
+<% html_title(l(:label_failure)) -%>

@@ -1,7 +1,7 @@
 <h2><%= l(:label_failure_plural) %></h2>
 
 <div class="autoscroll">
-<table class="list">
+<table class="list failures">
   <thead><tr>
     <%= sort_header_tag('id', :caption => "#") %>
     <th><%= l(:label_login) %></th>
@@ -18,8 +18,10 @@
       <%= link_to_if failure.user_id.present?, failure.login, user_path(failure.id) %>
     </td>
     <td class="name">
-      <strong><%= h failure.name %></strong><br>
-      <%= h failure.short_message %>
+      <%= link_to failure_path(failure), :class => "nostyle" do %>
+        <strong><%= h failure.name %></strong><br>
+        <%= h failure.short_message %>
+      <% end %>
     </td>
     <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
     <td class="buttons">

@@ -28,14 +28,10 @@ class FailuresControllerTest < ActionController::TestCase
   end
 
   context "GET :index" do
-    should "define routes for failures" do
+    should "define a route" do
       assert_routing(
         { :method => :get, :path => '/failures' },
         { :controller => 'failures', :action => 'index' }
-      )
-      assert_routing(
-        { :method => :get, :path => '/failures/567' },
-        { :controller => 'failures', :action => 'show', :id => '567' }
       )
     end
 
@@ -45,6 +41,23 @@ class FailuresControllerTest < ActionController::TestCase
       assert_response :success
       assert_template "failures/index"
       assert assigns(:failures).include?(failure)
+    end
+  end
+
+  context "GET :show" do
+    should "define a route" do
+      assert_routing(
+        { :method => :get, :path => '/failures/567' },
+        { :controller => 'failures', :action => 'show', :id => '567' }
+      )
+    end
+
+    should "display a failure" do
+      failure = Failure.create!(name: "ArgumentError", context: "", message: "blah")
+      get :show, :id => failure.id
+      assert_response :success
+      assert_template "failures/show"
+      assert_equal failure, assigns(:failure)
     end
   end
 

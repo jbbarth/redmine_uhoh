@@ -20,6 +20,10 @@ class FailuresController < ApplicationController
     render :layout => !request.xhr?
   end
 
+  def show
+    @failure = Failure.find(params[:id].to_i)
+  end
+
   def update
     @failure = Failure.find(params[:id].to_i)
     @failure.acknowledge! if params[:acknowledged] == "1"

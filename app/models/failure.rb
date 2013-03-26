@@ -10,6 +10,10 @@ class Failure < ActiveRecord::Base
     "#{message}".split("\n").first.sub(Rails.root.to_s, "")
   end
 
+  def long_message
+    "#{message}".gsub(Rails.root.to_s, "")
+  end
+
   def compute_signature
     msg = short_message.gsub(/<([A-Z]\w+):0x\w+>/){ "<#{$1}:xxx>" }
     self.signature = "#{name}|#{msg}"
