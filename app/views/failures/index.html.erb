@@ -15,7 +15,7 @@
   <tr class="failure <%= cycle("odd", "even") %>">
     <td class="id"><%= failure.id %></td>
     <td class="login">
-      <%= link_to_if failure.user_id.present?, failure.login, user_path(failure.id) %>
+      <%= link_to_if failure.user_id.present?, failure.login, user_path(failure.user_id) %>
     </td>
     <td class="name">
       <%= link_to failure_path(failure), :class => "nostyle" do %>
