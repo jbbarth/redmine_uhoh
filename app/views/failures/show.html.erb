@@ -5,7 +5,7 @@
 
 <em class="info">
   <%= format_time(@failure.created_at) %> /
-  <%= link_to_if @failure.user_id.present?, @failure.login, user_path(@failure.user_id) %>
+  <%= @failure.user_id.present? ? link_to(@failure.login, user_path(@failure.user_id)) : @failure.login %>
 </em>
 <div class=failure-backtrace>
   <code>
