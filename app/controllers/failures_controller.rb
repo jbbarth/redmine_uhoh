@@ -13,8 +13,8 @@ class FailuresController < ApplicationController
 
     @limit = per_page_option
     @failure_count = scope.count
-    @failure_pages = Paginator.new self, @failure_count, @limit, params[:page]
-    @offset ||= @failure_pages.current.offset
+    @failure_pages = Paginator.new @failure_count, @limit, params[:page]
+    @offset ||= @failure_pages.offset
     @failures =  scope.order(sort_clause).limit(@limit).offset(@offset)
 
     render :layout => !request.xhr?
