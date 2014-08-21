@@ -1,6 +1,11 @@
-require File.expand_path('../../test_helper', __FILE__)
+require "spec_helper"
+require "active_support/testing/assertions"
 
-class FailuresSubscriberTest < ActionController::TestCase
+describe "FailuresSubscriber" do
+  include ActiveSupport::Testing::Assertions
+
+  render_views
+
   fixtures :projects, :trackers, :issue_statuses, :issues,
            :enumerations, :users, :issue_categories,
            :projects_trackers,
@@ -11,7 +16,7 @@ class FailuresSubscriberTest < ActionController::TestCase
            :enabled_modules,
            :workflows
 
-  def setup
+  before do
     @controller = NewsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -19,7 +24,7 @@ class FailuresSubscriberTest < ActionController::TestCase
     @request.session[:user_id] = 2 #jsmith
   end
 
-  def test_insert_a_failure
+  it "should insert a failure" do
     News.stubs(:visible).raises(Exception.new("Bad robot"))
     assert_difference 'Failure.count' do
       assert_raises Exception do
@@ -28,8 +33,8 @@ class FailuresSubscriberTest < ActionController::TestCase
     end
     failure = Failure.last
     assert failure.message.match /Bad robot/
-    assert_equal "jsmith", failure.login
-    assert_equal 2, failure.user_id
+    failure.login.should == "jsmith"
+    failure.user_id.should == 2
     assert failure.backtrace.match(/\w+/)
   end
 

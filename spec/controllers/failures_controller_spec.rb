@@ -1,14 +1,14 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require "spec_helper"
 
 require File.dirname(__FILE__) + '/../../app/controllers/failures_controller'
 
-class FailuresControllerTest < ActionController::TestCase
+describe FailuresController do
   fixtures :projects, :users, :roles, :members, :member_roles, :issues, :issue_statuses, :versions, :trackers,
            :projects_trackers, :issue_categories, :enabled_modules, :enumerations, :attachments, :workflows,
            :custom_fields, :custom_values, :custom_fields_projects, :custom_fields_trackers, :time_entries,
            :journals, :journal_details, :queries, :repositories, :changesets, :issue_relations
 
-  def setup
+  before do
     @controller = FailuresController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -17,7 +17,7 @@ class FailuresControllerTest < ActionController::TestCase
   end
 
   context "without admin privileges" do
-    should "reject user" do
+    it "should reject user" do
       @request.session[:user_id] = 2 # not admin
       get :index
       assert_response 403
@@ -25,57 +25,57 @@ class FailuresControllerTest < ActionController::TestCase
   end
 
   context "GET :index" do
-    should "define a route" do
+    it "should define a route" do
       assert_routing(
         { :method => :get, :path => '/failures' },
         { :controller => 'failures', :action => 'index' }
       )
     end
 
-    should "display errors" do
+    it "should display errors" do
       failure = Failure.create!(name: "ArgumentError", context: "", message: "blah")
       get :index
-      assert_response :success
+      response.should be_success
       assert_template "failures/index"
       assert assigns(:failures).include?(failure)
     end
   end
 
   context "GET :show" do
-    should "define a route" do
+    it "should define a route" do
       assert_routing(
         { :method => :get, :path => '/failures/567' },
         { :controller => 'failures', :action => 'show', :id => '567' }
       )
     end
 
-    should "display a failure" do
+    it "should display a failure" do
       failure = Failure.create!(name: "ArgumentError", context: "", message: "blah")
       get :show, :id => failure.id
-      assert_response :success
+      response.should be_success
       assert_template "failures/show"
-      assert_equal failure, assigns(:failure)
+      assigns(:failure).should == failure
     end
   end
 
   context "PUT :update" do
-    setup do
+    before do
       @failure = Failure.create!(name: "ArgumentError", context: "ctx", message: "blah")
     end
 
-    should "acknowledge failure if parameter is passed" do
+    it "should acknowledge failure if parameter is passed" do
       put :update, :id => @failure.id, :acknowledged => "1"
-      assert_redirected_to "/failures"
+      response.should redirect_to("/failures")
       assert @failure.reload.acknowledged?
     end
 
-    should "not accept updates on any other parameter" do
+    it "should not accept updates on any other parameter" do
       old_attributes = @failure.attributes
       put :update, :id => @failure.id, :failure => { :name => "Blah", :context => "Foo" }
-      assert_redirected_to "/failures"
+      response.should redirect_to("/failures")
       @failure.reload
       %w(name context message signature acknowledged acknowledged_user_id).each do |key|
-        assert_equal old_attributes[key], @failure.attributes[key]
+        @failure.attributes[key].should == old_attributes[key]
       end
     end
   end
