@@ -5,18 +5,18 @@ describe "Failure" do
 
   it "should #short_message" do
     failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails")
-    failure.short_message.should == "/blah:57 hi"
+    expect(failure.short_message).to eq "/blah:57 hi"
   end
 
   it "should #long_message" do
     failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails",
                               :backtrace => "backbacktrace")
-    failure.long_message.should == "/blah:57 hi\ndetails\nbackbacktrace"
+    expect(failure.long_message).to eq "/blah:57 hi\ndetails\nbackbacktrace"
   end
 
   it "should #signature" do
     failure = Failure.create!(:name => "Exception", :message => "blah:57 hi <Model:0x4234c453> foo\ndetails")
-    failure.signature.should == "Exception|blah:57 hi <Model:xxx> foo"
+    expect(failure.signature).to eq "Exception|blah:57 hi <Model:xxx> foo"
   end
 
   it "should #acknowledge!" do
@@ -25,7 +25,7 @@ describe "Failure" do
     assert !failure.acknowledged?
     failure.acknowledge!
     assert failure.acknowledged?
-    failure.acknowledged_user.should == User.current
+    expect(failure.acknowledged_user).to eq User.current
   end
 
   it "should #not_acknowledged scope" do

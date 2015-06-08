@@ -4,6 +4,8 @@ class Failure < ActiveRecord::Base
 
   before_save :compute_signature
 
+  attr_accessible :name, :message, :acknowledged, :backtrace, :acknowledged_user_id
+
   scope :not_acknowledged, lambda{ where(:acknowledged => false) }
 
   def short_message

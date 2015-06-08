@@ -1,7 +1,7 @@
 require "spec_helper"
 require "active_support/testing/assertions"
 
-describe "FailuresSubscriber" do
+describe "FailuresSubscriber", type: :controller do
   include ActiveSupport::Testing::Assertions
 
   render_views
@@ -25,7 +25,7 @@ describe "FailuresSubscriber" do
   end
 
   it "should insert a failure" do
-    News.stubs(:visible).raises(Exception.new("Bad robot"))
+    allow(News).to receive(:visible).and_raise(Exception.new("Bad robot"))
     assert_difference 'Failure.count' do
       assert_raises Exception do
         get :index
@@ -33,8 +33,8 @@ describe "FailuresSubscriber" do
     end
     failure = Failure.last
     assert failure.message.match /Bad robot/
-    failure.login.should == "jsmith"
-    failure.user_id.should == 2
+    expect(failure.login).to eq "jsmith"
+    expect(failure.user_id).to eq 2
     assert failure.backtrace.match(/\w+/)
   end
 

@@ -2,7 +2,7 @@ require "spec_helper"
 
 require File.dirname(__FILE__) + '/../../app/controllers/failures_controller'
 
-describe FailuresController do
+describe FailuresController, type: :controller do
   fixtures :projects, :users, :roles, :members, :member_roles, :issues, :issue_statuses, :versions, :trackers,
            :projects_trackers, :issue_categories, :enabled_modules, :enumerations, :attachments, :workflows,
            :custom_fields, :custom_values, :custom_fields_projects, :custom_fields_trackers, :time_entries,
@@ -35,7 +35,7 @@ describe FailuresController do
     it "should display errors" do
       failure = Failure.create!(name: "ArgumentError", context: "", message: "blah")
       get :index
-      response.should be_success
+      expect(response).to be_success
       assert_template "failures/index"
       assert assigns(:failures).include?(failure)
     end
@@ -52,9 +52,9 @@ describe FailuresController do
     it "should display a failure" do
       failure = Failure.create!(name: "ArgumentError", context: "", message: "blah")
       get :show, :id => failure.id
-      response.should be_success
+      expect(response).to be_success
       assert_template "failures/show"
-      assigns(:failure).should == failure
+      expect(assigns(:failure)).to eq failure
     end
   end
 
@@ -65,17 +65,17 @@ describe FailuresController do
 
     it "should acknowledge failure if parameter is passed" do
       put :update, :id => @failure.id, :acknowledged => "1"
-      response.should redirect_to("/failures")
+      expect(response).to redirect_to("/failures")
       assert @failure.reload.acknowledged?
     end
 
     it "should not accept updates on any other parameter" do
       old_attributes = @failure.attributes
       put :update, :id => @failure.id, :failure => { :name => "Blah", :context => "Foo" }
-      response.should redirect_to("/failures")
+      expect(response).to redirect_to("/failures")
       @failure.reload
       %w(name context message signature acknowledged acknowledged_user_id).each do |key|
-        @failure.attributes[key].should == old_attributes[key]
+        expect(@failure.attributes[key]).to eq old_attributes[key]
       end
     end
   end
