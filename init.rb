@@ -1,5 +1,9 @@
-require 'redmine_uhoh/subscriber'
-require 'redmine_uhoh/hooks'
+require 'redmine'
+
+ActionDispatch::Callbacks.to_prepare do
+  require_dependency 'redmine_uhoh/subscriber'
+  require_dependency 'redmine_uhoh/hooks'
+end
 
 Redmine::Plugin.register :redmine_uhoh do
   name 'Redmine Uhoh plugin'

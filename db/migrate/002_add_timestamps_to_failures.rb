@@ -1,7 +1,7 @@
 class AddTimestampsToFailures < ActiveRecord::Migration
   def change
     change_table :failures do |t|
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end
