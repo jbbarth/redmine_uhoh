@@ -2,3 +2,6 @@ en:
   label_failure: "Failure"
   label_failure_plural: "Failures"
   label_acknowledge: "Acknowledge"
+  label_acknowledge_similar: "Acknowledge similar failures"
+  label_acknowledge_similar_html: "Acknowledge<br/>similar failures"
+  label_acknowledge_all: "Acknowledge all failures"

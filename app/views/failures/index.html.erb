@@ -1,3 +1,6 @@
+<div class=contextual>
+  <%= link_to(l(:label_acknowledge_all), failure_path(@failures.first, :acknowledged => 'all'), :method => :put) unless @failures.blank? %>
+</div>
 <h2><%= l(:label_failure_plural) %></h2>
 
 <div class="autoscroll">
@@ -8,6 +11,7 @@
     <%= sort_header_tag('name', :caption => l(:field_type)) %>
     <%= sort_header_tag('created_at', :caption => l(:field_created_on), :default_order => 'desc') 
     %>
+    <th></th>
     <th></th>
   </tr></thead>
   <tbody>
@@ -26,6 +30,9 @@
     <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
     <td class="buttons">
       <%= link_to l(:label_acknowledge), failure_path(failure, :acknowledged => 1), :method => :put %>
+    </td>
+    <td class="buttons">
+      <%= link_to (raw l(:label_acknowledge_similar_html)), failure_path(failure, :acknowledged => "similar"), :method => :put %>
     </td>
   </tr>
 <% end %>

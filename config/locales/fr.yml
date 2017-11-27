@@ -2,3 +2,6 @@ fr:
   label_failure: "Erreur"
   label_failure_plural: "Erreurs"
   label_acknowledge: "Acquitter"
+  label_acknowledge_similar: "Acquitter les erreurs similaires"
+  label_acknowledge_similar_html: "Acquitter<br/>les erreurs similaires"
+  label_acknowledge_all: "Acquitter toutes les erreurs"

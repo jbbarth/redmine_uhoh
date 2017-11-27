@@ -25,4 +25,13 @@ class Failure < ActiveRecord::Base
     self.update_attributes(:acknowledged => true,
                            :acknowledged_user_id => User.current.id)
   end
+
+  def acknowledge_similar_failures
+    Failure.where(signature: self.signature).update_all(:acknowledged => true,
+                                                      :acknowledged_user_id => User.current.id)
+  end
+
+  def acknowledge_all_failures
+    Failure.update_all(:acknowledged => true, :acknowledged_user_id => User.current.id)
+  end
 end

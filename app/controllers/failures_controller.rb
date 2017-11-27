@@ -27,6 +27,8 @@ class FailuresController < ApplicationController
   def update
     @failure = Failure.find(params[:id].to_i)
     @failure.acknowledge! if params[:acknowledged] == "1"
+    @failure.acknowledge_similar_failures if params[:acknowledged] == "similar"
+    @failure.acknowledge_all_failures if params[:acknowledged] == "all"
     redirect_to failures_path
   end
 end
