@@ -19,6 +19,11 @@ describe "Failure" do
     expect(failure.signature).to eq "Exception|blah:57 hi <Model:xxx> foo"
   end
 
+  it "should #url" do
+    failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails", :path => "/details")
+    expect(failure.url).to eq "/details"
+  end
+
   it "should #acknowledge!" do
     User.current = User.find(1)
     failure = Failure.create!(:name => "Exception", :message => "blah:57 hi <Model:0x4234c453> foo\ndetails")

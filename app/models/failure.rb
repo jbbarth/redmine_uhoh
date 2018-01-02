@@ -4,7 +4,7 @@ class Failure < ActiveRecord::Base
 
   before_save :compute_signature
 
-  attr_accessible :name, :message, :acknowledged, :backtrace, :acknowledged_user_id
+  attr_accessible :name, :message, :acknowledged, :backtrace, :acknowledged_user_id, :path
 
   scope :not_acknowledged, lambda{ where(:acknowledged => false) }
 
@@ -14,6 +14,10 @@ class Failure < ActiveRecord::Base
 
   def long_message
     "#{message}\n#{backtrace}".gsub(Rails.root.to_s, "")
+  end
+
+  def url
+    "#{path}"
   end
 
   def compute_signature

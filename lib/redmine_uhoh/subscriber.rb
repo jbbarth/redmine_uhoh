@@ -14,7 +14,12 @@ ActiveSupport::Notifications.subscribe "process_action.action_controller" do |na
 
     # TODO : Find a way to remove 'assign without protection' and use safe_attributes or create!(attrs) directly, without mass_assignment error
     failure = Failure.new
-    attrs = {'name' => name, :message => message, :backtrace => backtrace, :login => login, :user_id => user_id}
+    attrs = {'name' => name,
+             :message => message,
+             :backtrace => backtrace,
+             :path => payload[:path],
+             :login => login,
+             :user_id => user_id}
     failure.assign_attributes(attrs, :without_protection => true)
     failure.save!
     # Failure.create!(:name => name, :message => message, :backtrace => backtrace, :login => login, :user_id => user_id)

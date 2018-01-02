@@ -8,6 +8,10 @@
 <em class="info">
   <%= format_time(@failure.created_at) %> /
   <%= @failure.user_id.present? ? link_to(@failure.login, user_path(@failure.user_id)) : @failure.login %>
+  <% if @failure.url.present? %>
+    <br>
+    <%= "#{l(:field_url)}: #{@failure.url}" %>
+  <% end %>
 </em>
 <div class=failure-backtrace>
   <code>
