@@ -7,7 +7,7 @@ class FailuresController < ApplicationController
 
   def index
     sort_init "id", "desc"
-    sort_update %w(id name created_at)
+    sort_update %w(id name created_at path)
 
     scope = Failure.not_acknowledged
 
