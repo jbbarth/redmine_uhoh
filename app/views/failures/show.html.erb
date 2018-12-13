@@ -13,6 +13,13 @@
     <%= "#{l(:field_url)}: #{@failure.url}" %>
   <% end %>
 </em>
+<h3>Context</h3>
+<div class="failure-context">
+  <code>
+    <%= h @failure.context %>
+  </code>
+</div>
+<h3>Backtrace</h3>
 <div class=failure-backtrace>
   <code>
     <strong><%= h @failure.name %></strong><br>
