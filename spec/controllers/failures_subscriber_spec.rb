@@ -18,8 +18,8 @@ describe "FailuresSubscriber", type: :controller do
 
   before do
     @controller = NewsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+    @request    = ActionDispatch::TestRequest.create
+    @response   = ActionDispatch::TestResponse.new
     User.current = nil
     @request.session[:user_id] = 2 #jsmith
   end

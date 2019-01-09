@@ -1,10 +1,12 @@
 class Failure < ActiveRecord::Base
+  include Redmine::SafeAttributes
+
   unloadable
   belongs_to :acknowledged_user, :class_name => "User", :foreign_key => "acknowledged_user_id"
 
   before_save :compute_signature
 
-  attr_accessible :name, :message, :acknowledged, :backtrace, :acknowledged_user_id, :path
+  safe_attributes :name, :message, :acknowledged, :backtrace, :acknowledged_user_id, :path
 
   scope :not_acknowledged, lambda{ where(:acknowledged => false) }
 
