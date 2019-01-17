@@ -28,8 +28,9 @@ class Failure < ActiveRecord::Base
   end
 
   def acknowledge!
-    self.update_attributes(:acknowledged => true,
-                           :acknowledged_user_id => User.current.id)
+    self.safe_attributes = {:acknowledged => true,
+                            :acknowledged_user_id => User.current.id}
+    self.save
   end
 
   def acknowledge_similar_failures
