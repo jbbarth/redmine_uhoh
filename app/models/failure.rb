@@ -1,6 +1,6 @@
 class Failure < ActiveRecord::Base
   unloadable
-  belongs_to :acknowledged_user, class_name: "User", foreign_key: "acknowledged_user_id"
+  belongs_to :acknowledged_user, class_name: 'User', foreign_key: 'acknowledged_user_id'
 
   before_save :compute_signature
 
@@ -9,11 +9,11 @@ class Failure < ActiveRecord::Base
   scope :not_acknowledged, lambda{ where(acknowledged: false) }
 
   def short_message
-    "#{message}".split("\n").first.sub(Rails.root.to_s, "")
+    "#{message}".split("\n").first.sub(Rails.root.to_s, '')
   end
 
   def long_message
-    "#{message}\n#{backtrace}".gsub(Rails.root.to_s, "")
+    "#{message}\n#{backtrace}".gsub(Rails.root.to_s, '')
   end
 
   def url

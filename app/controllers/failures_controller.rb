@@ -1,12 +1,12 @@
 class FailuresController < ApplicationController
   before_filter :require_admin
-  layout "admin"
+  layout 'admin'
 
   helper :sort
   include SortHelper
 
   def index
-    sort_init "id", "desc"
+    sort_init 'id', 'desc'
     sort_update %w(id name created_at path)
 
     scope = Failure.not_acknowledged
@@ -26,9 +26,9 @@ class FailuresController < ApplicationController
 
   def update
     @failure = Failure.find(params[:id].to_i)
-    @failure.acknowledge! if params[:acknowledged] == "1"
-    @failure.acknowledge_similar_failures if params[:acknowledged] == "similar"
-    @failure.acknowledge_all_failures if params[:acknowledged] == "all"
+    @failure.acknowledge! if params[:acknowledged] == '1'
+    @failure.acknowledge_similar_failures if params[:acknowledged] == 'similar'
+    @failure.acknowledge_all_failures if params[:acknowledged] == 'all'
     redirect_to failures_path
   end
 end
