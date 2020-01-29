@@ -1,3 +1,4 @@
+# create failures table
 class CreateFailures < ActiveRecord::Migration
   def change
     create_table :failures do |t|

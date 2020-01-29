@@ -2,11 +2,13 @@ require 'spec_helper'
 
 require File.dirname(__FILE__) + '/../../app/controllers/failures_controller'
 
+# rubocop: disable Metrics/BlockLength
 describe FailuresController, type: :controller do
-  fixtures :projects, :users, :roles, :members, :member_roles, :issues, :issue_statuses, :versions, :trackers,
-           :projects_trackers, :issue_categories, :enabled_modules, :enumerations, :attachments, :workflows,
-           :custom_fields, :custom_values, :custom_fields_projects, :custom_fields_trackers, :time_entries,
-           :journals, :journal_details, :queries, :repositories, :changesets, :issue_relations
+  fixtures :projects, :users, :roles, :members, :member_roles, :issues, :issue_statuses, :versions,
+           :trackers, :projects_trackers, :issue_categories, :enabled_modules, :enumerations,
+           :attachments, :workflows, :custom_fields, :custom_values, :custom_fields_projects,
+           :custom_fields_trackers, :time_entries, :journals, :journal_details, :queries,
+           :repositories, :changesets, :issue_relations
 
   before do
     @controller = FailuresController.new
@@ -28,7 +30,7 @@ describe FailuresController, type: :controller do
     it 'should define a route' do
       assert_routing(
         { method: :get, path: '/failures' },
-        { controller: 'failures', action: 'index' }
+        controller: 'failures', action: 'index'
       )
     end
 
@@ -45,7 +47,7 @@ describe FailuresController, type: :controller do
     it 'should define a route' do
       assert_routing(
         { method: :get, path: '/failures/567' },
-        { controller: 'failures', action: 'show', id: '567' }
+        controller: 'failures', action: 'show', id: '567'
       )
     end
 
@@ -92,9 +94,10 @@ describe FailuresController, type: :controller do
       put :update, id: @failure.id, failure: { name: 'Blah', context: 'Foo' }
       expect(response).to redirect_to('/failures')
       @failure.reload
-      %w(name context message signature acknowledged acknowledged_user_id).each do |key|
+      %w[name context message signature acknowledged acknowledged_user_id].each do |key|
         expect(@failure.attributes[key]).to eq old_attributes[key]
       end
     end
   end
 end
+# rubocop: enable Metrics/BlockLength

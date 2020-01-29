@@ -21,7 +21,7 @@ describe 'FailuresSubscriber', type: :controller do
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     User.current = nil
-    @request.session[:user_id] = 2 #jsmith
+    @request.session[:user_id] = 2 # jsmith
   end
 
   it 'should insert a failure' do
@@ -32,7 +32,7 @@ describe 'FailuresSubscriber', type: :controller do
       end
     end
     failure = Failure.last
-    assert failure.message.match /Bad robot/
+    assert failure.message.match(/Bad robot/)
     expect(failure.login).to eq 'jsmith'
     expect(failure.user_id).to eq 2
     assert failure.backtrace.match(/\w+/)

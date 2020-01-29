@@ -10,5 +10,9 @@ Layout/LineLength:
   Max: 120
 Layout/EndOfLine:
   EnforcedStyle: lf
+Metrics/AbcSize:
+  Max: 20
+Metrics/BlockLength:
+  Max: 40
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never

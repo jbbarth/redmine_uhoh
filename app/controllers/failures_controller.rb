@@ -1,3 +1,4 @@
+# Failures access
 class FailuresController < ApplicationController
   before_filter :require_admin
   layout 'admin'
@@ -7,7 +8,7 @@ class FailuresController < ApplicationController
 
   def index
     sort_init 'id', 'desc'
-    sort_update %w(id name created_at path)
+    sort_update %w[id name created_at path]
 
     scope = Failure.not_acknowledged
 
@@ -15,7 +16,7 @@ class FailuresController < ApplicationController
     @failure_count = scope.count
     @failure_pages = Paginator.new @failure_count, @limit, params[:page]
     @offset ||= @failure_pages.offset
-    @failures =  scope.order(sort_clause).limit(@limit).offset(@offset)
+    @failures = scope.order(sort_clause).limit(@limit).offset(@offset)
 
     render layout: !request.xhr?
   end

@@ -18,7 +18,7 @@ Redmine::Plugin.register :redmine_uhoh do
 end
 
 Redmine::MenuManager.map :admin_menu do |menu|
-  menu.push :failures, {controller: :failures},
+  menu.push :failures, { controller: :failures },
             caption: :label_failure_plural,
-            html: {class: 'icon'}
+            html: { class: 'icon' }
 end

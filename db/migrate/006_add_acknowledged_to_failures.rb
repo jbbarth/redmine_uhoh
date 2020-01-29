@@ -1,3 +1,4 @@
+# add acknowledged columns
 class AddAcknowledgedToFailures < ActiveRecord::Migration
   def change
     add_column :failures, :acknowledged, :boolean, default: false
