@@ -38,5 +38,4 @@ describe 'FailuresSubscriber', type: :controller do
     assert failure.backtrace.match(/\w+/)
     expect(failure.path).to eq '/news'
   end
-
 end
