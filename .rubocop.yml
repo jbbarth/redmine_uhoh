@@ -1,0 +1,14 @@
+require:
+  #- rubocop-performance
+  #- rubocop-rails
+  #- rubocop-rake
+  #- rubocop-rspec
+AllCops:
+  TargetRubyVersion: 2.4
+  #TargetRailsVersion: 4.2
+Layout/LineLength:
+  Max: 100
+Layout/EndOfLine:
+  EnforcedStyle: lf
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
