@@ -1,11 +1,11 @@
 require:
-  #- rubocop-performance
-  #- rubocop-rails
-  #- rubocop-rake
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
   #- rubocop-rspec
 AllCops:
   TargetRubyVersion: 2.4
-  #TargetRailsVersion: 4.2
+  TargetRailsVersion: 4.2
 Layout/LineLength:
   Max: 120
 Layout/EndOfLine:

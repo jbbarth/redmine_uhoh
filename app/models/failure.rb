@@ -1,7 +1,11 @@
 # Failure model
 class Failure < ActiveRecord::Base
   unloadable
-  belongs_to :acknowledged_user, class_name: 'User', foreign_key: 'acknowledged_user_id'
+
+  belongs_to :acknowledged_user,
+             class_name: 'User',
+             foreign_key: 'acknowledged_user_id',
+             inverse_of: false
 
   before_save :compute_signature
 
@@ -27,10 +31,11 @@ class Failure < ActiveRecord::Base
   end
 
   def acknowledge!
-    update_attributes(acknowledged: true,
-                      acknowledged_user_id: User.current.id)
+    update(acknowledged: true,
+           acknowledged_user_id: User.current.id)
   end
 
+  # rubocop: disable Rails/SkipsModelValidations
   def acknowledge_similar_failures
     Failure.where(signature: signature)
            .update_all(acknowledged: true, acknowledged_user_id: User.current.id)
@@ -39,4 +44,5 @@ class Failure < ActiveRecord::Base
   def acknowledge_all_failures
     Failure.update_all(acknowledged: true, acknowledged_user_id: User.current.id)
   end
+  # rubocop: enable Rails/SkipsModelValidations
 end

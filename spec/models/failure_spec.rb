@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 # rubocop: disable Metrics/BlockLength
+# rubocop: disable Rails/FilePath
 describe 'Failure' do
   fixtures :users
 
@@ -101,4 +102,5 @@ describe 'Failure' do
     assert !Failure.not_acknowledged.include?(failure2)
   end
 end
+# rubocop: enable Rails/FilePath
 # rubocop: enable Metrics/BlockLength
