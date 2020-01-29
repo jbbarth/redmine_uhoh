@@ -17,7 +17,7 @@ class FailuresController < ApplicationController
     @offset ||= @failure_pages.offset
     @failures =  scope.order(sort_clause).limit(@limit).offset(@offset)
 
-    render :layout => !request.xhr?
+    render layout: !request.xhr?
   end
 
   def show
