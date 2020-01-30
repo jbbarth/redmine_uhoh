@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 require 'active_support/testing/assertions'
 
 describe 'FailuresSubscriber', type: :controller do
@@ -6,15 +6,17 @@ describe 'FailuresSubscriber', type: :controller do
 
   render_views
 
-  fixtures :projects, :trackers, :issue_statuses, :issues,
-           :enumerations, :users, :issue_categories,
-           :projects_trackers,
-           :queries,
-           :roles,
-           :member_roles,
+  fixtures :users,
            :members,
+           :member_roles,
+           :projects,
+           :projects_trackers,
+           :roles,
            :enabled_modules,
-           :workflows
+           :issues,
+           :trackers,
+           :issue_statuses,
+           :enumerations
 
   before do
     @controller = NewsController.new

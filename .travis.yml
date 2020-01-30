@@ -41,8 +41,8 @@ install:
   - bundle exec rake redmine:plugins:migrate
 
 script:
-  # Run tests
-  - bundle exec rspec -fd --fail-fast -Iplugins/$PLUGIN_NAME/spec  plugins/$PLUGIN_NAME/spec
+  # Run all tests
+  - bundle exec rspec -fd -Iplugins/$PLUGIN_NAME/spec  plugins/$PLUGIN_NAME/spec
   # Run linter
   - cd $REDMINE_PATH/plugins/$PLUGIN_NAME
   - bundle exec rubocop

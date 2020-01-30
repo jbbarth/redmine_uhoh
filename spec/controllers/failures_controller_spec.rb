@@ -1,14 +1,23 @@
-require 'spec_helper'
-
-require File.dirname(__FILE__) + '/../../app/controllers/failures_controller'
+require_relative '../spec_helper'
+require_relative '../../app/controllers/failures_controller'
 
 # rubocop: disable Metrics/BlockLength
 describe FailuresController, type: :controller do
-  fixtures :projects, :users, :roles, :members, :member_roles, :issues, :issue_statuses, :versions,
-           :trackers, :projects_trackers, :issue_categories, :enabled_modules, :enumerations,
-           :attachments, :workflows, :custom_fields, :custom_values, :custom_fields_projects,
-           :custom_fields_trackers, :time_entries, :journals, :journal_details, :queries,
-           :repositories, :changesets, :issue_relations
+  fixtures :users,
+           :members,
+           :member_roles,
+           :projects,
+           :projects_trackers,
+           :roles,
+           :enabled_modules,
+           :issues,
+           :trackers,
+           :issue_statuses,
+           :enumerations,
+           :journals,
+           :journal_details,
+           :repositories,
+           :changesets
 
   before do
     @controller = FailuresController.new

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 # rubocop: disable Metrics/BlockLength
 # rubocop: disable Rails/FilePath
