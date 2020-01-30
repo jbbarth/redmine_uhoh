@@ -1,3 +1,4 @@
+# add user_id column
 class AddUserIdToFailures < ActiveRecord::Migration
   def change
     add_column :failures, :user_id, :integer
