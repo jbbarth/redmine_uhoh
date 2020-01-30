@@ -6,17 +6,7 @@ describe 'FailuresSubscriber', type: :controller do
 
   render_views
 
-  fixtures :users,
-           :members,
-           :member_roles,
-           :projects,
-           :projects_trackers,
-           :roles,
-           :enabled_modules,
-           :issues,
-           :trackers,
-           :issue_statuses,
-           :enumerations
+  fixtures :users
 
   before do
     @controller = NewsController.new

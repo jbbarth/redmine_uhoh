@@ -3,21 +3,7 @@ require_relative '../../app/controllers/failures_controller'
 
 # rubocop: disable Metrics/BlockLength
 describe FailuresController, type: :controller do
-  fixtures :users,
-           :members,
-           :member_roles,
-           :projects,
-           :projects_trackers,
-           :roles,
-           :enabled_modules,
-           :issues,
-           :trackers,
-           :issue_statuses,
-           :enumerations,
-           :journals,
-           :journal_details,
-           :repositories,
-           :changesets
+  fixtures :users
 
   before do
     @controller = FailuresController.new
