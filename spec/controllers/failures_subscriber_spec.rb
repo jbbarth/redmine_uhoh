@@ -7,21 +7,19 @@ describe "FailuresSubscriber", type: :controller do
   render_views
 
   fixtures :projects, :trackers, :issue_statuses, :issues,
-           :enumerations, :users, :issue_categories,
+           :enumerations, :users, :issue_categories, :email_addresses,
            :projects_trackers,
            :queries,
-           :roles,
-           :member_roles,
-           :members,
-           :enabled_modules,
-           :workflows
+           :roles, :members, :member_roles,
+           :enabled_modules, :workflows,
+           :comments, :news, :attachments
 
   before do
     @controller = NewsController.new
     @request    = ActionDispatch::TestRequest.create
     @response   = ActionDispatch::TestResponse.new
-    User.current = nil
-    @request.session[:user_id] = 2 #jsmith
+    User.current = User.find(1)
+    @request.session[:user_id] = 1 #admin
   end
 
   it "should insert a failure" do
@@ -32,10 +30,10 @@ describe "FailuresSubscriber", type: :controller do
       end
     end
     failure = Failure.last
-    assert failure.message.match /Bad robot/
-    expect(failure.login).to eq "jsmith"
-    expect(failure.user_id).to eq 2
-    assert failure.backtrace.match(/\w+/)
+    expect(failure.message).to match /Bad robot/
+    expect(failure.login).to eq "admin"
+    expect(failure.user_id).to eq 1
+    expect(failure.backtrace).to match /\w+/
     # expect(failure.path).to eq "/news"
   end
 
