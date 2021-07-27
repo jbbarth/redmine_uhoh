@@ -24,7 +24,7 @@ ActiveSupport::Notifications.subscribe 'process_action.action_controller' do |na
               :login => login,
               :user_id => user_id,
               :context => payload.inspect }
-    failure.assign_attributes(attrs, without_protection: true)
+    failure.safe_attributes = attrs
     failure.save!
     # Failure.create!(:name => name, :message => message, :backtrace => backtrace, :login => login, :user_id => user_id)
   end

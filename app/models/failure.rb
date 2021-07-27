@@ -1,15 +1,17 @@
 # Failure model
 class Failure < ActiveRecord::Base
+  include Redmine::SafeAttributes
+
   unloadable
 
   belongs_to :acknowledged_user,
              class_name: 'User',
-             foreign_key: 'acknowledged_user_id',
              inverse_of: false
 
   before_save :compute_signature
 
-  attr_accessible :name, :message, :acknowledged, :backtrace, :acknowledged_user_id, :path
+  safe_attributes :name, :message, :acknowledged, :backtrace, :acknowledged_user_id,
+                  :path, :login, :user_id, :context
 
   scope :not_acknowledged, -> { where(acknowledged: false) }
 
@@ -31,8 +33,9 @@ class Failure < ActiveRecord::Base
   end
 
   def acknowledge!
-    update(acknowledged: true,
-           acknowledged_user_id: User.current.id)
+    self.safe_attributes = { acknowledged: true,
+                             acknowledged_user_id: User.current.id }
+    save
   end
 
   # rubocop: disable Rails/SkipsModelValidations

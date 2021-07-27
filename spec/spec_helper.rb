@@ -1,6 +1,6 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'active_record'
-ActiveRecord::Base.logger = Logger.new(STDOUT) if ENV['DEBUG']
+ActiveRecord::Base.logger = Logger.new($stdout) if ENV['DEBUG']
 
 $LOAD_PATH.unshift File.expand_path("#{__dir__}/../app")
 

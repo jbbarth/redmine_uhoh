@@ -1,6 +1,7 @@
 require 'redmine'
 
-ActionDispatch::Callbacks.to_prepare do
+klass = defined?(ActiveSupport::Reloader) ? ActiveSupport::Reloader : ActionDispatch::Callbacks
+klass.to_prepare do
   require_dependency 'redmine_uhoh/subscriber'
   require_dependency 'redmine_uhoh/hooks'
 end
