@@ -17,7 +17,7 @@
   </tr></thead>
   <tbody>
 <% @failures.each do |failure| %>
-  <tr class="failure <%= cycle("odd", "even") %>">
+  <tr class="failure">
     <td class="id"><%= failure.id %></td>
     <td class="login">
       <%= failure.user_id.present? ? link_to(failure.login, user_path(failure.user_id)) : failure.login %>

@@ -1,5 +1,5 @@
 # create failures table
-class CreateFailures < ActiveRecord::Migration
+class CreateFailures < Rails.version < '5.1' ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
   def change
     # timestamps are added in a later migration, forgotten here...
     # rubocop: disable Rails/CreateTableWithTimestamps
