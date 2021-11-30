@@ -14,9 +14,9 @@ def handle_exception_payload(payload)
       user_id = nil
     end
 
-    # TODO : Find a way to remove 'assign without protection' and use safe_attributes
-    # or create!(attrs) directly, without mass_assignment error
     failure = Failure.new
+    # HACK: cut-off very long messages to avoid getting out of space for the column
+    message = message.slice(0, 65535) if message.length > 65535
     attrs = { 'name' => name,
               :message => message,
               :backtrace => backtrace,
@@ -25,8 +25,8 @@ def handle_exception_payload(payload)
               :user_id => user_id,
               :context => payload.inspect }
     failure.safe_attributes = attrs
-    failure.save!
-    # Failure.create!(:name => name, :message => message, :backtrace => backtrace, :login => login, :user_id => user_id)
+    saved = failure.save
+    Rails.logger.error("Could not save failure #{failure} because of #{failure.errors.full_messages}") unless saved
   end
 end
 
