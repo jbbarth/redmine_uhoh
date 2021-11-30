@@ -1,6 +1,6 @@
 require_dependency 'failure'
 
-ActiveSupport::Notifications.subscribe 'process_action.action_controller' do |name, _start, _finish, _id, payload|
+def handle_exception_payload(payload)
   if payload[:exception]
     name, message = *payload[:exception]
     # rubocop: disable Style/SpecialGlobalVars
@@ -28,4 +28,12 @@ ActiveSupport::Notifications.subscribe 'process_action.action_controller' do |na
     failure.save!
     # Failure.create!(:name => name, :message => message, :backtrace => backtrace, :login => login, :user_id => user_id)
   end
+end
+
+ActiveSupport::Notifications.subscribe 'process_action.action_controller' do |name, _start, _finish, _id, payload|
+  handle_exception_payload(payload)
+end
+
+ActiveSupport::Notifications.subscribe 'z_app_engine.initialization' do |name, _start, _finish, _id, payload|
+  handle_exception_payload(payload)
 end
