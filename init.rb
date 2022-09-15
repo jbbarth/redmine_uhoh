@@ -16,7 +16,7 @@ Redmine::Plugin.register :redmine_uhoh do
   description 'Keep track of raised exceptions within Redmine'
   author 'Jean-Baptiste BARTH (orig)'
   author_url 'https://github.com/tools-aoeur'
-  version '1.0.2'
+  version '1.0.3'
   url 'https://github.com/tools-aoeur/redmine_uhoh'
   requires_redmine version_or_higher: '3.2.0'
   requires_redmine_plugin :redmine_base_rspec, version_or_higher: '2.0.0' if Rails.env.test?
