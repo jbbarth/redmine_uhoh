@@ -7,6 +7,7 @@ if Rails::VERSION::MAJOR < 6
     require_dependency 'redmine_uhoh/hooks'
   end
 else
+  Rails.autoloaders.main.ignore("#{__dir__}/lib/redmine_uhoh")
   require_relative 'lib/redmine_uhoh/subscriber'
   require_relative 'lib/redmine_uhoh/hooks'
 end
@@ -16,7 +17,7 @@ Redmine::Plugin.register :redmine_uhoh do
   description 'Keep track of raised exceptions within Redmine'
   author 'Jean-Baptiste BARTH (orig)'
   author_url 'https://github.com/tools-aoeur'
-  version '1.0.3'
+  version '1.0.4'
   url 'https://github.com/tools-aoeur/redmine_uhoh'
   requires_redmine version_or_higher: '3.2.0'
   requires_redmine_plugin :redmine_base_rspec, version_or_higher: '2.0.0' if Rails.env.test?
