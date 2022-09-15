@@ -1,9 +1,14 @@
 require 'redmine'
 
-klass = defined?(ActiveSupport::Reloader) ? ActiveSupport::Reloader : ActionDispatch::Callbacks
-klass.to_prepare do
-  require_dependency 'redmine_uhoh/subscriber'
-  require_dependency 'redmine_uhoh/hooks'
+if Rails::VERSION::MAJOR < 6
+  klass = defined?(ActiveSupport::Reloader) ? ActiveSupport::Reloader : ActionDispatch::Callbacks
+  klass.to_prepare do
+    require_dependency 'redmine_uhoh/subscriber'
+    require_dependency 'redmine_uhoh/hooks'
+  end
+else
+  require_relative 'lib/redmine_uhoh/subscriber'
+  require_relative 'lib/redmine_uhoh/hooks'
 end
 
 Redmine::Plugin.register :redmine_uhoh do

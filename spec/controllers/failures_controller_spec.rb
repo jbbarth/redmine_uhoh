@@ -7,8 +7,8 @@ describe FailuresController, type: :controller do
 
   before do
     @controller = FailuresController.new
-    @request = ActionController::TestRequest.new
-    @response = ActionController::TestResponse.new
+    @request = ActionDispatch::TestRequest.create
+    @response = ActionDispatch::TestResponse.new
     User.current = nil
     @request.session[:user_id] = 1 # admin
   end
@@ -32,7 +32,7 @@ describe FailuresController, type: :controller do
     it 'should display errors' do
       failure = Failure.create!(name: 'ArgumentError', context: '', message: 'blah')
       get :index
-      expect(response).to be_success
+      expect(response).to be_successful
       assert_template 'failures/index'
       assert assigns(:failures).include?(failure)
     end
@@ -48,8 +48,8 @@ describe FailuresController, type: :controller do
 
     it 'should display a failure' do
       failure = Failure.create!(name: 'ArgumentError', context: '', message: 'blah')
-      get :show, id: failure.id
-      expect(response).to be_success
+      get :show, params: { id: failure.id }
+      expect(response).to be_successful
       assert_template 'failures/show'
       expect(assigns(:failure)).to eq failure
     end
@@ -63,13 +63,13 @@ describe FailuresController, type: :controller do
     end
 
     it 'should acknowledge failure if parameter is passed' do
-      put :update, id: @failure.id, acknowledged: '1'
+      put :update, params: { id: @failure.id, acknowledged: '1' }
       expect(response).to redirect_to('/failures')
       assert @failure.reload.acknowledged?
     end
 
     it 'should acknowledge similar failures according to passed parameter' do
-      put :update, id: @failure.id, acknowledged: 'similar'
+      put :update, params: { id: @failure.id, acknowledged: 'similar' }
       expect(response).to redirect_to('/failures')
       assert @failure.reload.acknowledged?
       assert @similar_failure.reload.acknowledged?
@@ -77,7 +77,7 @@ describe FailuresController, type: :controller do
     end
 
     it 'should acknowledge similar failures according to passed parameter' do
-      put :update, id: @failure.id, acknowledged: 'all'
+      put :update, params: { id: @failure.id, acknowledged: 'all' }
       expect(response).to redirect_to('/failures')
       assert @failure.reload.acknowledged?
       assert @similar_failure.reload.acknowledged?
@@ -86,7 +86,7 @@ describe FailuresController, type: :controller do
 
     it 'should not accept updates on any other parameter' do
       old_attributes = @failure.attributes
-      put :update, id: @failure.id, failure: { name: 'Blah', context: 'Foo' }
+      put :update, params: { id: @failure.id, failure: { name: 'Blah', context: 'Foo' } }
       expect(response).to redirect_to('/failures')
       @failure.reload
       %w[name context message signature acknowledged acknowledged_user_id].each do |key|

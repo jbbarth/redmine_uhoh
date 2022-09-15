@@ -6,28 +6,38 @@ describe 'FailuresSubscriber', type: :controller do
 
   render_views
 
-  fixtures :users
+  fixtures :projects, :trackers, :issue_statuses, :issues,
+           :enumerations, :users, :issue_categories, :email_addresses,
+           :projects_trackers,
+           :queries,
+           :roles, :members, :member_roles,
+           :enabled_modules, :workflows,
+           :comments, :news, :attachments
 
   before do
     @controller = NewsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-    User.current = nil
-    @request.session[:user_id] = 2 # jsmith
+    @request    = ActionDispatch::TestRequest.create
+    @response   = ActionDispatch::TestResponse.new
+    User.current = User.find(1)
+    @request.session[:user_id] = 1 # admin
+  end
+
+  subject(:result) do
+    begin
+      get :index
+    rescue Exception
+      # expected "Exception" and failure to be registered
+    end
   end
 
   it 'should insert a failure' do
     allow(News).to receive(:visible).and_raise(Exception.new('Bad robot'))
-    assert_difference 'Failure.count' do
-      assert_raises Exception do
-        get :index
-      end
-    end
+    expect { result }.to change { Failure.count }.by 1
     failure = Failure.last
-    assert failure.message.match(/Bad robot/)
-    expect(failure.login).to eq 'jsmith'
-    expect(failure.user_id).to eq 2
-    assert failure.backtrace.match(/\w+/)
-    expect(failure.path).to eq '/news'
+    expect(failure.message).to match(/Bad robot/)
+    expect(failure.login).to eq 'admin'
+    expect(failure.user_id).to eq 1
+    expect(failure.backtrace).to match(/\w+/)
+    # expect(failure.path).to eq "/news"
   end
 end
