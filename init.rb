@@ -1,9 +1,5 @@
 require 'redmine'
-
-ActiveSupport::Reloader.to_prepare do
-  require_dependency 'redmine_uhoh/subscriber'
-  require_dependency 'redmine_uhoh/hooks'
-end
+require_relative 'lib/redmine_uhoh/hooks'
 
 Redmine::Plugin.register :redmine_uhoh do
   name 'Redmine Uhoh plugin'

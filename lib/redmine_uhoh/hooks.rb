@@ -6,4 +6,10 @@ module RedmineUhoh
       stylesheet_link_tag("uhoh", :plugin => "redmine_uhoh") if admin_layout
     end
   end
+
+  class ModelHook < Redmine::Hook::Listener
+    def after_plugins_loaded(_context = {})
+      require_relative 'subscriber'
+    end
+  end
 end
