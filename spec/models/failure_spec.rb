@@ -3,15 +3,30 @@ require "spec_helper"
 describe "Failure" do
   fixtures :users
 
-  it "should #short_message" do
-    failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails")
-    expect(failure.short_message).to eq "/blah:57 hi"
+  describe "#short_message method" do
+    it "should #short_message" do
+      failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails")
+      expect(failure.short_message).to eq "/blah:57 hi"
+    end
+
+    it "does not through an exception if it receives an empty message" do
+      failure = Failure.create!(:message => "")
+      expect(failure.short_message).to eq ""
+    end
   end
 
-  it "should #long_message" do
-    failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails",
-                              :backtrace => "backbacktrace")
-    expect(failure.long_message).to eq "/blah:57 hi\ndetails\nbackbacktrace"
+  describe "#long_message method" do
+    it "should #long_message" do
+      failure = Failure.create!(:message => "#{Rails.root}/blah:57 hi\ndetails",
+                                :backtrace => "backbacktrace")
+      expect(failure.long_message).to eq "/blah:57 hi\ndetails\nbackbacktrace"
+    end
+
+    it "does not through an exception if it receives an empty message" do
+      failure = Failure.create!(:message => "",
+                                :backtrace => "backbacktrace")
+      expect(failure.long_message).to eq "\nbackbacktrace"
+    end
   end
 
   it "should #signature" do

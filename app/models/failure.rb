@@ -12,7 +12,7 @@ class Failure < ActiveRecord::Base
   scope :not_acknowledged, lambda{ where(:acknowledged => false) }
 
   def short_message
-    "#{message}".split("\n").first.sub(Rails.root.to_s, "")
+    "#{message}".split("\n").first&.sub(Rails.root.to_s, "").to_s
   end
 
   def long_message
