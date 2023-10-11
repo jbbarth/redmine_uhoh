@@ -4,43 +4,48 @@
 <h2><%= l(:label_failure_plural) %></h2>
 
 <div class="autoscroll">
-<table class="list failures">
-  <thead><tr>
-    <%= sort_header_tag('id', :caption => "#") %>
-    <th><%= l(:field_login) %></th>
-    <%= sort_header_tag('name', :caption => l(:field_type)) %>
-    <%= sort_header_tag('path', :caption => l(:field_url)) %>
-    <%= sort_header_tag('created_at', :caption => l(:field_created_on), :default_order => 'desc') 
-    %>
-    <th></th>
-    <th></th>
-  </tr></thead>
-  <tbody>
-<% @failures.each do |failure| %>
-  <tr class="failure">
-    <td class="id"><%= failure.id %></td>
-    <td class="login">
-      <%= failure.user_id.present? ? link_to(failure.login, user_path(failure.user_id)) : failure.login %>
-    </td>
-    <td class="name">
-      <%= link_to failure_path(failure), :class => "nostyle" do %>
-        <strong><%= h failure.name %></strong><br>
-        <%= h failure.short_message %>
-      <% end %>
-    </td>
-    <td><%= link_to(truncate(failure.path), failure.path) if failure.path.present? %></td>
-    <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
-    <td class="buttons">
-      <%= link_to l(:label_acknowledge), failure_path(failure, :acknowledged => 1), :method => :put %>
-    </td>
-    <td class="buttons">
-      <%= link_to (raw l(:label_acknowledge_similar_html)), failure_path(failure, :acknowledged => "similar"), :method => :put %>
-    </td>
-  </tr>
-<% end %>
-  </tbody>
-</table>
+  <table class="list failures">
+    <thead>
+    <tr>
+      <%= sort_header_tag('id', :caption => "#") %>
+      <th><%= l(:field_login) %></th>
+      <%= sort_header_tag('name', :caption => l(:field_type)) %>
+      <%= sort_header_tag('path', :caption => l(:field_url)) %>
+      <%= sort_header_tag('created_at', :caption => l(:field_created_on), :default_order => 'desc') %>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @failures.each do |failure| %>
+      <tr class="failure">
+        <td class="id"><%= failure.id %></td>
+        <td class="login">
+          <%= failure.user_id.present? ? link_to(failure.login, user_path(failure.user_id)) : failure.login %>
+        </td>
+        <td class="name">
+          <%= link_to failure_path(failure), :class => "nostyle" do %>
+            <strong><%= h failure.name %></strong><br>
+            <%= h failure.short_message %>
+          <% end %>
+        </td>
+        <td><%= link_to(truncate(failure.path), failure.path) if failure.path.present? %></td>
+        <td class="created_at" align="center"><%= format_time(failure.created_at) %></td>
+        <td class="buttons">
+          <%= link_to l(:label_acknowledge), failure_path(failure, :acknowledged => 1), :method => :put %>
+        </td>
+        <td class="buttons">
+          <%= link_to (raw l(:label_acknowledge_similar_html)), failure_path(failure, :acknowledged => "similar"), :method => :put %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 <span class="pagination"><%= pagination_links_full @failure_pages, @failure_count %></span>
+
+<div class=contextual>
+  <%= link_to l(:label_create_test_exception), raise_exception_failures_path %>
+</div>
 
 <% html_title(l(:label_failure_plural)) -%>

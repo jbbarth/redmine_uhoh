@@ -31,4 +31,8 @@ class FailuresController < ApplicationController
     @failure.acknowledge_all_failures if params[:acknowledged] == "all"
     redirect_to failures_path
   end
+
+  def raise_exception
+    raise "Oups"
+  end
 end

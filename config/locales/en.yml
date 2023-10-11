@@ -5,3 +5,4 @@ en:
   label_acknowledge_similar: "Acknowledge similar failures"
   label_acknowledge_similar_html: "Acknowledge<br/>similar failures"
   label_acknowledge_all: "Acknowledge all failures"
+  label_create_test_exception: "Create a test failure"

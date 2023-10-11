@@ -5,3 +5,4 @@ fr:
   label_acknowledge_similar: "Acquitter les erreurs similaires"
   label_acknowledge_similar_html: "Acquitter<br/>les erreurs similaires"
   label_acknowledge_all: "Acquitter toutes les erreurs"
+  label_create_test_exception: "Créer une erreur de test"
