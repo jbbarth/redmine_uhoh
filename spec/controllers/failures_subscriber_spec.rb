@@ -16,19 +16,19 @@ describe "FailuresSubscriber", type: :controller do
 
   before do
     @controller = NewsController.new
-    @request    = ActionDispatch::TestRequest.create
-    @response   = ActionDispatch::TestResponse.new
+    @request = ActionDispatch::TestRequest.create
+    @response = ActionDispatch::TestResponse.new
     User.current = User.find(1)
-    @request.session[:user_id] = 1 #admin
+    @request.session[:user_id] = 1 # admin
   end
 
   it "should insert a failure" do
     allow(News).to receive(:visible).and_raise(Exception.new("Bad robot"))
-    assert_difference 'Failure.count' do
+    expect do
       assert_raises Exception do
         get :index
       end
-    end
+    end.to change { Failure.count }
     failure = Failure.last
     expect(failure.message).to match /Bad robot/
     expect(failure.login).to eq "admin"
