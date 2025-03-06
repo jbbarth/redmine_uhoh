@@ -1,7 +1,6 @@
-class Failure < ActiveRecord::Base
+class Failure < ApplicationRecord
   include Redmine::SafeAttributes
 
-  unloadable
   belongs_to :acknowledged_user, :class_name => "User", :foreign_key => "acknowledged_user_id"
 
   before_save :compute_signature
