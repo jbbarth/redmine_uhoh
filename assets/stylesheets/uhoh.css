@@ -1,4 +1,5 @@
-.icon-failures, #admin-menu a.failures { background-image: url(../images/http_status_server_error.png); }
+#admin-menu a.failures.icon-warning svg.icon-svg { stroke: #169; }
+#admin-menu a.failures.icon-warning:hover svg.icon-svg { stroke: #c61a1a; }
 .failures a.nostyle { color:inherit; text-decoration:none; }
 .failure-backtrace { margin:10px 0; padding:10px; background-color:#eee; }
 table.list.failures td.buttons, div.buttons {text-align: center;}
