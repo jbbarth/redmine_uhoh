@@ -16,8 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        ruby: ['3.3']
-        db: ['postgres']
+        ruby: [ '3.3' ]
+        db: [ 'postgres' ]
       fail-fast: false
 
     services:
@@ -139,7 +139,7 @@ jobs:
         run: |
           bundle install --jobs=4 --retry=3 --without development
           bundle exec rake redmine:plugins:migrate
-          cp -i plugins/*/spec/fixtures/*yml test/fixtures/
+          # cp -i plugins/*/spec/fixtures/*yml test/fixtures/
           bundle exec rails db:fixtures:load
 
       - name: Run core tests
