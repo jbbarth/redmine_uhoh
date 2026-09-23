@@ -6,7 +6,7 @@ class Failure < ApplicationRecord
   before_save :compute_signature
 
   safe_attributes :name, :message, :acknowledged, :backtrace, :acknowledged_user_id,
-                  :path, :login, :user_id, :context
+                  :path, :http_method, :login, :user_id, :context
 
   scope :not_acknowledged, lambda{ where(:acknowledged => false) }
 

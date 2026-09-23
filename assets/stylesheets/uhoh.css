@@ -3,3 +3,5 @@
 .failures a.nostyle { color:inherit; text-decoration:none; }
 .failure-backtrace { margin:10px 0; padding:10px; background-color:#eee; }
 table.list.failures td.buttons, div.buttons {text-align: center;}
+table.list.failures td.path { white-space: nowrap; }
+.failures .http-method, .info .http-method { font-family: monospace; font-weight: bold; }

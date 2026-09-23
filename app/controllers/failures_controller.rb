@@ -3,6 +3,7 @@ class FailuresController < ApplicationController
   layout "admin"
 
   helper :sort
+  helper :failures
   include SortHelper
 
   def index

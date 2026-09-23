@@ -10,7 +10,7 @@
   <%= @failure.user_id.present? ? link_to(@failure.login, user_path(@failure.user_id)) : @failure.login %>
   <% if @failure.url.present? %>
     <br>
-    <%= "#{l(:field_url)}: #{@failure.url}" %>
+    <%= l(:field_url) %>: <%= failure_request(@failure, truncate: false) %>
   <% end %>
 </em>
 <div class=failure-backtrace>

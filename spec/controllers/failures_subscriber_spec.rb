@@ -35,7 +35,8 @@ describe "FailuresSubscriber", type: :controller do
     expect(failure.login).to eq "admin"
     expect(failure.user_id).to eq 1
     expect(failure.backtrace).to match /\w+/
-    # expect(failure.path).to eq "/news"
+
+    expect(failure.http_method).to eq "GET"
   end
 
 end

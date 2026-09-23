@@ -16,6 +16,7 @@ module RedmineUhoh::Subscriber
                 'message': message,
                 'backtrace': backtrace,
                 'path': payload[:path],
+                'http_method': payload[:method],
                 'login': login,
                 'user_id': user_id }
       failure.safe_attributes = attrs
